@@ -1,3 +1,9 @@
+<!--- LOG: Page Access --->
+<cflog
+    file="crmRequestLog"
+    type="information"
+    text="Submit Request page opened by user: #session.username#">
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,18 +45,33 @@
   </a>
 </div>
 
-<!-- ALERT POPUPS -->
-<cfif data.result EQ "success">
-<script>
-    alert("Request Submitted Successfully!");
-    window.location.href = "index.cfm?fuse=viewrequests";
-</script>
+<!-- ALERT POPUPS + LOGGING -->
+<cfif structKeyExists(data, "result") AND data.result EQ "success">
 
-<cfelseif data.result EQ "error">
-<script>
-    alert("Failed! Please fill all fields or try again.");
-    window.location.href = "index.cfm?fuse=submitrequest";
-</script>
+    <!--- LOG: Success --->
+    <cflog
+        file="crmRequestLog"
+        type="information"
+        text="Request submitted successfully by user: #session.username#">
+
+    <script>
+        alert("Request Submitted Successfully!");
+        window.location.href = "index.cfm?fuse=viewrequests";
+    </script>
+
+<cfelseif structKeyExists(data, "result") AND data.result EQ "error">
+
+    <!--- LOG: Error --->
+    <cflog
+        file="crmRequestLog"
+        type="error"
+        text="Request submission failed by user: #session.username#">
+
+    <script>
+        alert("Failed! Please fill all fields or try again.");
+        window.location.href = "index.cfm?fuse=submitrequest";
+    </script>
+
 </cfif>
 
 </body>

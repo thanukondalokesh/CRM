@@ -1,3 +1,9 @@
+<!--- LOG: Edit Request Page Opened --->
+<cflog
+    file="crmRequestLog"
+    type="information"
+    text="Edit Request page opened. RequestID=#url.id#, User=#session.username#">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +12,7 @@
     <link rel="stylesheet" href="css/editRequest.css">
 </head>
 <body>
+
 <cfsetting showDebugOutput="false">
 
 <!-- If controller passed data.req -->
@@ -15,7 +22,8 @@
     <!-- Fallback to query by url.id -->
     <cfparam name="url.id" default="0">
     <cfquery name="getRequest" datasource="#application.datasource#">
-        SELECT * FROM requests WHERE id = <cfqueryparam value="#url.id#" cfsqltype="cf_sql_integer">
+        SELECT * FROM requests 
+        WHERE id = <cfqueryparam value="#url.id#" cfsqltype="cf_sql_integer">
     </cfquery>
 </cfif>
 
@@ -24,7 +32,6 @@
     <a href="../index.cfm?fuse=viewrequests">Back to requests</a>
     <cfabort>
 </cfif>
-
 
 <cfoutput query="getRequest">
 <div class="container">
@@ -45,7 +52,7 @@
 
             <!-- Title -->
             <label>Title</label>
-            <input type="text" name="title" value=#title# required>
+            <input type="text" name="title" value="#title#" required>
 
             <!-- Description -->
             <label>Description</label>
@@ -59,11 +66,19 @@
         </form>
 
         <cfif structKeyExists(request, "updateStatus") AND request.updateStatus EQ "failed">
+
+            <!--- LOG: Update Failed --->
+            <cflog
+                file="crmRequestLog"
+                type="error"
+                text="Request update failed. RequestID=#id#, User=#session.username#">
+
             <div class="error">Update failed. Try again.</div>
         </cfif>
 
     </div>
 </div>
 </cfoutput>
+
 </body>
 </html>
