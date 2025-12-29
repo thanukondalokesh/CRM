@@ -102,6 +102,10 @@
             <cfset resp = application.controller.deleterequest(url.id) />
 
             <cfif resp.result EQ "success">
+                 <cflog
+            file="crmRequestLog"
+            type="information"
+            text="Request deleted successfully, User=#session.username#">
                 <cflocation url="index.cfm?fuse=viewrequests&msg=deleted" addtoken="false">
             <cfelse>
                 <cflocation url="index.cfm?fuse=viewrequests&msg=delete_failed" addtoken="false">
