@@ -91,7 +91,7 @@
 
     <!-- Build reset URL -->
     <cfset protocol = (CGI.HTTPS EQ "on" ? "https://" : "http://")>
-    <cfset resetURL = protocol & CGI.SERVER_NAME & ":" & CGI.SERVER_PORT & "/CRM/forgotPassword.cfm?step=resetPassword&token=" & URLEncodedFormat(resetToken)>
+    <cfset resetURL = protocol & CGI.SERVER_NAME & ":" & CGI.SERVER_PORT & "/CRM/views/forgotPassword.cfm?step=resetPassword&token=" & URLEncodedFormat(resetToken)>
 
     <!-- Send email -->
     <cfmail to="#session.forgot_email#" from="admin@gmail.com" subject="Password Reset Link">
