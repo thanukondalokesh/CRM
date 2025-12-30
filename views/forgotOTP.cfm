@@ -40,18 +40,11 @@ It will expire in 2 minutes.
 
     <h2>Verify OTP</h2>
 
-    <cfif now() GT session.otpExpiry>
-        <div class="message" style="color:red;">OTP expired!</div>
-        <form method="post" action="forgotOTP.cfm?step=sendOTP">
-            <button class="login-btn" style="background:green;">Resend OTP</button>
-        </form>
-        <cfabort>
-    </cfif>
+    <div id="timer" style="margin-bottom:10px; color:red; font-weight:bold;"></div>
 
     <form method="post" action="forgotOTP.cfm?step=verifyAction">
         <label>Enter OTP:</label>
         <input type="text" name="otp" maxlength="6" required>
-
         <button class="login-btn">Verify OTP</button>
     </form>
 
@@ -60,6 +53,8 @@ It will expire in 2 minutes.
     </form>
 
     <a href="forgotPassword.cfm" class="forgot-link">Back</a>
+
+    <script src="../scriptjs/verifyotp.js"></script>
     <cfabort>
 </cfif>
 
