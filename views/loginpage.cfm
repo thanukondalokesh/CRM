@@ -12,6 +12,13 @@
 
 <body>
   <div class="form-container">
+
+    <!-- SESSION EXPIRED MESSAGE -->
+    <cfif structKeyExists(url, "msg") AND url.msg EQ "sessionExpired">
+      <div class="message" style="color:red; margin-bottom:10px;">
+        Session expired. Please login again.
+      </div>
+    </cfif>
     <h2>Login</h2>
 
     <!-- Ensure session exists -->

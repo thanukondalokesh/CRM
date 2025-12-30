@@ -13,17 +13,10 @@
         <cfset application.mailFrom   = "noreply@crmapp.com">
 
 
-
+                <!-- CONTROLLER -->
         <cfset application.controller = new CRM.controller()>
-        <!-- CONTROLLER -->
         
-
-        <!-- SERVICE -->
-        
-
-
-
-
+             
 
         <cfreturn true>
     </cffunction>
@@ -57,7 +50,9 @@
         <!-- LOGIN ENFORCEMENT -->
         <cfif NOT listFindNoCase(noLoginPages, currentPage)>
             <cfif NOT structKeyExists(session, "loggedIn") OR session.loggedIn NEQ true>
-                <cflocation url="/CRM/views/loginpage.cfm" addtoken="false">
+                <cflocation 
+            url="/CRM/views/loginpage.cfm?msg=sessionExpired" 
+            addtoken="false">
                 <cfabort>
             </cfif>
         </cfif>
