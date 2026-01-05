@@ -69,6 +69,8 @@
 
       <input type="submit" name="login" value="Login" class="login-btn">
     </form>
+    <br>
+    Don’t have an account?
 
     <a href="register.cfm" class="register-link">Register here</a>
     <a href="forgotPassword.cfm" class="forgot-link">Forgot Password?</a>

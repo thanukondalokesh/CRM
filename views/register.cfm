@@ -63,7 +63,7 @@
   <form method="post" action="register.cfm?step=sendOTP" id="registerForm" novalidate>
 
     <label>Username:</label>
-    <input type="text" name="username" id="username" required>
+    <input type="text" name="username" id="username" required placeholder="Enter Username">
     <div id="usernameMsg" class="msg"></div>
 
 
@@ -83,7 +83,7 @@
     <div id="matchMessage" style="margin-top:5px; font-weight:bold;"></div>
 
     <label>Email:</label>
-    <input type="email" name="email" id="email" required>
+    <input type="email" name="email" id="email" required placeholder="Enter Email">
     <div id="emailMsg" class="msg"></div>
 
     <div id="formError" style="color:red; font-weight:bold; margin-top:10px;"></div>
@@ -92,7 +92,7 @@
   </form>
 
   <br>
-  Already have an account? <a href="loginpage.cfm">Login</a>
+  Already I have an account? <a href="loginpage.cfm">Login Here</a>
   <cfabort>
 </cfif>
 
@@ -108,6 +108,25 @@
   <cfparam name="form.password" default="">
   <cfparam name="form.confirmPassword" default="">
   <cfparam name="form.email" default="">
+
+    <!-- REQUIRED FIELD VALIDATION -->
+  <cfif
+      NOT len(trim(form.username)) OR
+      NOT len(trim(form.password)) OR
+      NOT len(trim(form.confirmPassword)) OR
+      NOT len(trim(form.email))
+  >
+      <cfset session.regError = "All fields are mandatory. Please fill all details.">
+      <cflog file="registration" text="Missing required fields during registration">
+      <cflocation url="register.cfm">
+  </cfif>
+
+  <!-- EMAIL FORMAT VALIDATION -->
+  <cfif NOT isValid("email", form.email)>
+      <cfset session.regError = "Please enter a valid email address.">
+      <cflocation url="register.cfm">
+  </cfif>
+
 
   <!-- Validate password match -->
   <cfif trim(form.password) NEQ trim(form.confirmPassword)>
