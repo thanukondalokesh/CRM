@@ -68,3 +68,8 @@ Date: #dateFormat(now(), 'dd-MM-yyyy')#<br><br>
         'Report sent to admin'
     )
 </cfquery>
+<cfoutput>
+    <p style="color:green;font-weight:bold;">
+        Daily report mail sent to your mail successfully.
+    </p>
+</cfoutput>
