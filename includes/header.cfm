@@ -23,7 +23,7 @@
     <a href="index.cfm?fuse=submitrequest">Submit Request</a>
     <a href="index.cfm?fuse=viewrequests">View Requests</a>
     <cfif structKeyExists(session, "adminstatus") AND session.adminstatus EQ "1">
-        <a href="index.cfm?fuse=viewlogs">View Logs</a>
+        <a href="index.cfm?fuse=viewlogs">Activity Logs</a>
         <a href="index.cfm?fuse=customers">Customers Management</a>
         <a href="index.cfm?fuse=registerlist">Users Register List</a>
     </cfif>

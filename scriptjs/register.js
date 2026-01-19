@@ -1,5 +1,10 @@
-// register.js - password validate, eye toggle, live username/email check
+// register.js - SAFE VERSION
 document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("registerForm");
+
+    // 🔴 IMPORTANT: If not register page, STOP JS
+    if (!form) return;
 
     const pwd = document.getElementById("password");
     const cpwd = document.getElementById("confirmPassword");
@@ -7,16 +12,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const email = document.getElementById("email");
     const matchMessage = document.getElementById("matchMessage");
     const formError = document.getElementById("formError");
-    const form = document.getElementById("registerForm");
+
+    const togglePwd = document.getElementById("togglePassword");
+    const toggleCPwd = document.getElementById("toggleConfirmPassword");
 
     // ===========================
-    // PASSWORD EYE ICON TOGGLE
+    // PASSWORD EYE TOGGLE
     // ===========================
-    document.getElementById("togglePassword").onclick = () => toggleEye(pwd, "togglePassword");
-    document.getElementById("toggleConfirmPassword").onclick = () => toggleEye(cpwd, "toggleConfirmPassword");
+    if (togglePwd && pwd) {
+        togglePwd.addEventListener("click", () => toggleEye(pwd, togglePwd));
+    }
 
-    function toggleEye(field, iconId) {
-        let icon = document.getElementById(iconId);
+    if (toggleCPwd && cpwd) {
+        toggleCPwd.addEventListener("click", () => toggleEye(cpwd, toggleCPwd));
+    }
+
+    function toggleEye(field, icon) {
         if (field.type === "password") {
             field.type = "text";
             icon.classList.replace("fa-eye", "fa-eye-slash");
@@ -68,11 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("register.cfm?check=username&value=" + encodeURIComponent(username.value))
             .then(r => r.text())
             .then(res => {
-                if (res === "EXISTS") {
-                    formError.textContent = "Username already exists, enter a new username.";
-                } else {
-                    formError.textContent = "";
-                }
+                formError.textContent =
+                    res === "EXISTS"
+                        ? "Username already exists, enter a new username."
+                        : "";
             });
     });
 
@@ -85,11 +95,10 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("register.cfm?check=email&value=" + encodeURIComponent(email.value))
             .then(r => r.text())
             .then(res => {
-                if (res === "EXISTS") {
-                    formError.textContent = "Email already exists, enter a new email.";
-                } else {
-                    formError.textContent = "";
-                }
+                formError.textContent =
+                    res === "EXISTS"
+                        ? "Email already exists, enter a new email."
+                        : "";
             });
     });
 
@@ -109,8 +118,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (pwd.value !== cpwd.value) {
             e.preventDefault();
             formError.textContent = "Passwords do not match.";
-            return;
         }
     });
+    
 
 });
