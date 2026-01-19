@@ -207,6 +207,13 @@ Valid for 2 minutes.
   <form method="post" action="register.cfm?step=verifyOTP">
     <input type="text" name="enterOTP" maxlength="6" required>
     <input type="submit" value="Verify OTP">
+
+    <!-- BACK LINK -->
+<div style="margin-top:12px;text-align:center;">
+    <a href="register.cfm" style="color:#007bff;text-decoration:none;">
+        Back
+    </a>
+</div>
   </form>
 
   <cfif structKeyExists(form,"enterOTP")>

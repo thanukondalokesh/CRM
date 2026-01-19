@@ -59,8 +59,8 @@ input:focus {
 
 .password-wrapper .eye-icon {
     position: absolute;
-    right: 10px;
-    top: 50%;
+    right: -10px;
+    top: 40%;
     transform: translateY(-50%);
     cursor: pointer;
     font-size: 14px;                 /* smaller icon */
