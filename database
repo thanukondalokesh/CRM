@@ -1,0 +1,182 @@
+use crm;
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100) unique,
+  password VARCHAR(100) NOT NULL,
+  email VARCHAR(100)  UNIQUE,
+  isAdmin VARCHAR(100) DEFAULT NULL,
+  profile_image_path VARCHAR(255) NULL,
+  about VARCHAR(255) NULL,
+  reset_token VARCHAR(100),
+  reset_expiry DATETIME
+);
+
+CREATE TABLE requests (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100) NOT NULL,
+  department VARCHAR(100),
+  title VARCHAR(100),
+  description VARCHAR(255),
+  action_time DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE action_logs (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100) NOT NULL,
+  action VARCHAR(50) NOT NULL,
+  description VARCHAR(255),
+  action_time DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE customers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) unique ,
+    phone VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    username VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE scheduler_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    taskName VARCHAR(100),
+    executedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(50),
+    message VARCHAR(255),
+    username varchar(200)
+    
+);
+
+
+CREATE TABLE pdf_download_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userName VARCHAR(100),
+    customerId INT,
+    downloadedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+select * from customers;
+
+alter table customers
+add column username VARCHAR(100) NOT NULL;
+
+ALTER TABLE users
+ADD COLUMN reset_token VARCHAR(255);
+UPDATE users SET reset_token = NULL;
+
+DESCRIBE users;
+
+Alter table requests change column name Department VARCHAR(100);
+Alter table requests change column email title VARCHAR(100);
+Alter table requests change column message Description VARCHAR(100);
+
+select * from action_logs;
+
+ALTER TABLE users
+ADD COLUMN token_expiry DATETIME;
+
+ALTER TABLE users
+ADD COLUMN email VARCHAR(100),
+ADD COLUMN department VARCHAR(100),
+ ADD column role VARCHAR(50);
+
+select * from requests;
+desc requests;
+
+ALTER TABLE requests
+  CHANGE COLUMN Department department VARCHAR(100),
+  CHANGE COLUMN title title VARCHAR(100),
+  CHANGE COLUMN Description description VARCHAR(255);
+ALTER TABLE requests
+  ADD COLUMN username VARCHAR(50) AFTER id,
+  ADD COLUMN created_at DATETIME DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE action_logs
+  CHANGE COLUMN userName username VARCHAR(100),
+  CHANGE COLUMN actionType action VARCHAR(100),
+  CHANGE COLUMN createdAt action_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+select * from users;
+
+drop table user;
+drop table scheduler_logs;
+ALTER TABLE users
+  DROP COLUMN department,
+  DROP COLUMN role;
+  ALTER TABLE users
+ADD COLUMN isAdmin VARCHAR(100) DEFAULT NULL;
+ALTER TABLE requests
+CHANGE COLUMN created_at action_time DATETIME DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE users
+ADD COLUMN otp VARCHAR(15);
+ALTER TABLE users
+Drop COLUMN otp ;
+ALTER TABLE users 
+MODIFY email VARCHAR(100) DEFAULT NULL ;
+ALTER TABLE users
+Drop COLUMN email ;
+ALTER TABLE users
+ADD COLUMN email VARCHAR(100) DEFAULT NULL ;
+ALTER TABLE users
+ADD COLUMN profile_image_path VARCHAR(255) NULL;
+ALTER TABLE users
+ADD COLUMN about VARCHAR(255) NULL;
+ALTER TABLE users
+drop COLUMN reset_token ,
+drop column token_expiry;
+select * from customers;
+
+select * from pdf_download_logs;
+select * from scheduler_logs;
+alter table scheduler_logs
+drop column username ;
+
+ALTER TABLE users 
+ADD COLUMN reset_token VARCHAR(100),
+ ADD COLUMN reset_expiry DATETIME;
+ 
+select * from users;
+SELECT reset_token, reset_expiry FROM users WHERE email='thanukondalokesh@gmail.com';
+
+ 
+SELECT reset_token, reset_expiry FROM users WHERE email='thanukondalokesh@gmail.com';
+
+ALTER TABLE users
+ADD CONSTRAINT unique_email UNIQUE (email);
+ALTER TABLE users
+ADD CONSTRAINT unique_username UNIQUE (username);
+
+select * from pdf_download_logs;
+
+SELECT *
+FROM users
+WHERE email IS NULL
+   OR email = '';
+   
+   DELETE
+FROM users
+WHERE email IS NULL
+   OR email = '';
+
+
+insert into  users(username,password) value('LOKESH', 'Loki123');
+select *from users;
+insert into  users(username,password) value('sai', 'sai@123');
+
+SELECT * FROM action_logs;
+ALTER TABLE action_logs CHANGE COLUMN created_at createdAt DATETIME DEFAULT CURRENT_TIMESTAMP;
+insert into users(username,password,isAdmin ) value('Admin','admin@123','1');
+delete from users where id=16;
+DELETE FROM users
+WHERE id = 66;
+
+use crm;
+select * from users;
+select * from action_logs;
+select * from customers;
+select * from pdf_download_logs;
+select * from requests;
+select * from scheduler_logs;
